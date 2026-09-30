@@ -98,8 +98,46 @@ void addNodeTail(Node *&head) {
     }
 
     Node *current = head;
-    
 
+    while (current->next) {
+        current = current->next;
+    }
+
+    current->next = newVal;
+}
+
+// delete a node
+void deleteNode(Node *&head) {
+    if (!head) {
+        cout << "List is empty." << endl;
+        return;
+    }
+
+    cout << "Which node to delete?" << endl;
+    output(head);
+
+    int entry;
+    cout << "Enter node number to delete: ";
+    cin >> entry;
+
+    Node *current = head;
+    Node *previous = nullptr;
+
+    for (int i = 0; i < (entry - 1); i++) {
+        previous = current;
+        current = current->next;
+    }
+
+    if (current) {
+        if (previous == nullptr) {
+            head = current->next;
+        } else {
+            previous->next = current->next;
+        }
+
+        delete current;
+        current = nullptr;
+    }
 }
 
 void output(Node *hd) {
