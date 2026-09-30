@@ -140,16 +140,66 @@ void deleteNode(Node *&head) {
     }
 }
 
-void output(Node *hd) {
-    if (!hd) {
+// insert a node
+void insertNode(Node *&head) {
+    if (!head) {
+        cout << "List is empty." << endl;
+        return;
+    }
+
+    cout << "After which node to insert?" << endl;
+    output(head);
+
+    int entry;
+    cout << "Enter node number to insert after: ";
+    cin >> entry;
+
+    Node *current = head;
+    Node *previous = nullptr;
+
+    for (int i = 0; i < entry; i++) {
+        previous = current;
+        current = current->next;
+    }
+
+    Node *newnode = new Node;
+    newnode->value = 10000;
+    newnode->next = current;
+
+    if (previous == nullptr) {
+        head = newnode;
+    } else {
+        previous->next = newnode;
+    }
+}
+
+// delete entire list
+void deleteList(Node *&head) {
+    Node *current = head;
+
+    while (current) {
+        head = current->next;
+        delete current;
+        current = head;
+    }
+
+    head = nullptr;
+}
+
+// output the list
+void output(Node *head) {
+    if (!head) {
         cout << "Empty list.\n";
         return;
     }
+
     int count = 1;
-    Node *current = hd;
+    Node *current = head;
+
     while (current) {
         cout << "[" << count++ << "] " << current->value << endl;
         current = current->next;
     }
+
     cout << endl;
 }
