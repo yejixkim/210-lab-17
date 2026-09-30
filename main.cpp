@@ -74,6 +74,7 @@ int main() {
 }
 
 // add node to front
+// pass head by reference to modify the original pointer and allow the new node to become the new head of the list
 void addNodeFront(Node *&head) {
     int tmp_val = rand() % 100; // random number between 0-99
     Node *newVal = new Node;
@@ -85,6 +86,7 @@ void addNodeFront(Node *&head) {
 }
 
 // add node to tail
+// pass head by reference to modify the original pointer if the list is empty and allow the new node to be added to the end of the list
 void addNodeTail(Node *&head) {
     int tmp_val = rand() % 100; // random number between 0-99
     Node *newVal = new Node;
@@ -107,6 +109,7 @@ void addNodeTail(Node *&head) {
 }
 
 // delete a node
+// pass head by reference to modify the original pointer and allow the new head of the list to be updated if the first node is deleted
 void deleteNode(Node *&head) {
     if (!head) {
         cout << "List is empty." << endl;
@@ -128,19 +131,24 @@ void deleteNode(Node *&head) {
         current = current->next;
     }
 
-    if (current) {
-        if (previous == nullptr) {
+    if (!current) {
+        cout << "Invalid node number." << endl;
+        return;
+    }
+
+    if (previous == nullptr) {
             head = current->next;
-        } else {
+        } 
+    else {
             previous->next = current->next;
         }
 
         delete current;
         current = nullptr;
-    }
 }
 
 // insert a node
+// pass head by reference to modify the original pointer and allow the new node to be inserted at the specified position in the list
 void insertNode(Node *&head) {
     if (!head) {
         cout << "List is empty." << endl;
@@ -162,18 +170,20 @@ void insertNode(Node *&head) {
         current = current->next;
     }
 
+    if (!previous) {
+        cout << "Invalid node number." << endl;
+        return;
+    }
+
     Node *newnode = new Node;
     newnode->value = 10000;
     newnode->next = current;
 
-    if (previous == nullptr) {
-        head = newnode;
-    } else {
-        previous->next = newnode;
-    }
+    previous->next = newnode;
 }
 
 // delete entire list
+// pass head by reference to modify the original pointer and allow the entire list to be deleted and head to be set to nullptr
 void deleteList(Node *&head) {
     Node *current = head;
 
