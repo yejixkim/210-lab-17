@@ -20,7 +20,6 @@ void output(Node *);
 
 int main() {
     Node *head = nullptr;
-    int count = 0;
 
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
@@ -54,80 +53,53 @@ int main() {
         else if (choice == 4) {
             insertNode(head);
         }
-    }
-
-    // deleting a node
-    cout << "Which node to delete? " << endl;
-    output(head);
-    int entry;
-    cout << "Choice --> ";
-    cin >> entry;
-
-    // traverse that many times and delete that node
-    Node *current = head;
-    Node *prev = nullptr;  // start prev as nullptr to detect head deletion
-
-    for (int i = 0; i < (entry - 1); i++) {
-        prev = current;
-        current = current->next;
-    }
-
-    // at this point, delete current and reroute pointers
-    if (current) {
-        if (prev == nullptr) {
-            // deleting the head node
-            head = current->next;
-        } else {
-            prev->next = current->next;
+        else if (choice ==5) {
+            deleteList(head);
         }
-        delete current;
-        current = nullptr;
-    }
-    output(head);
-
-    // insert a node
-    cout << "After which node to insert 10000? " << endl;
-    count = 1;
-    current = head;
-    while (current) {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
-    }
-    cout << "Choice --> ";
-    cin >> entry;
-
-    current = head;
-    prev = nullptr;  // reset prev to nullptr for same reason
-
-    for (int i = 0; i < entry; i++) {
-        prev = current;
-        current = current->next;
+        else if (choice == 6) {
+            output(head);
+        }
+        else if (choice == 7) {
+            cout << "Exiting program." << endl;
+        }
+        else {
+            cout << "Invalid choice. Please enter 1-7." << endl;
+        }
     }
 
-    // at this point, insert a node between prev and current
-    Node *newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
-
-    if (prev == nullptr) {
-        // inserting before the head
-        head = newnode;
-    } else {
-        prev->next = newnode;
-    }
-    output(head);
-
-    // deleting the linked list
-    current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
-    output(head);
+    // delete the entire list before exiting
+    deleteList(head);
 
     return 0;
+}
+
+// add node to front
+void addNodeFront(Node *&head) {
+    int tmp_val = rand() % 100; // random number between 0-99
+    Node *newVal = new Node;
+
+    newVal->value = tmp_val;
+    newVal->next = head;
+
+    head = newVal;
+}
+
+// add node to tail
+void addNodeTail(Node *&head) {
+    int tmp_val = rand() % 100; // random number between 0-99
+    Node *newVal = new Node;
+
+    newVal->value = tmp_val;
+    newVal->next = nullptr;
+
+    if (!head) {
+        head = newVal;
+        return;
+    }
+
+    Node *current = head;
+    
+
 }
 
 void output(Node *hd) {
