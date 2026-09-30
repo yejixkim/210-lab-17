@@ -1,31 +1,32 @@
 // COMSC 210 | Lab 17 | Yeji Kim
 
 #include <iostream>
+
 using namespace std;
 
-const int SIZE = 7;  
+const int SIZE = 7;
 
 struct Node {
     float value;
-    Node *next;
+    Node * next;
 };
 
 // adding function prototypes
-void addNodeFront(Node *&);
-void addNodeTail(Node *&);
-void deleteNode(Node *&);
-void insertNode(Node *&);
-void deleteList(Node *&);
-void output(Node *);
+void addNodeFront(Node * & );
+void addNodeTail(Node * & );
+void deleteNode(Node * & );
+void insertNode(Node * & );
+void deleteList(Node * & );
+void output(Node * );
 
 int main() {
-    Node *head = nullptr;
+    Node * head = nullptr;
 
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
         addNodeFront(head);
     }
-    
+
     int choice = 0;
 
     // menu loop for user to choose from
@@ -41,28 +42,21 @@ int main() {
         cout << "Choice --> ";
         cin >> choice;
 
-        if (choice ==1) {
+        if (choice == 1) {
             addNodeFront(head);
-        }
-        else if (choice == 2) {
+        } else if (choice == 2) {
             addNodeTail(head);
-        }
-        else if (choice == 3) {
+        } else if (choice == 3) {
             deleteNode(head);
-        }
-        else if (choice == 4) {
+        } else if (choice == 4) {
             insertNode(head);
-        }
-        else if (choice ==5) {
+        } else if (choice == 5) {
             deleteList(head);
-        }
-        else if (choice == 6) {
+        } else if (choice == 6) {
             output(head);
-        }
-        else if (choice == 7) {
+        } else if (choice == 7) {
             cout << "Exiting program." << endl;
-        }
-        else {
+        } else {
             cout << "Invalid choice. Please enter 1-7." << endl;
         }
     }
@@ -75,42 +69,42 @@ int main() {
 
 // add node to front
 // pass head by reference to modify the original pointer and allow the new node to become the new head of the list
-void addNodeFront(Node *&head) {
+void addNodeFront(Node * & head) {
     int tmp_val = rand() % 100; // random number between 0-99
-    Node *newVal = new Node;
+    Node * newVal = new Node;
 
-    newVal->value = tmp_val;
-    newVal->next = head;
+    newVal -> value = tmp_val;
+    newVal -> next = head;
 
     head = newVal;
 }
 
 // add node to tail
 // pass head by reference to modify the original pointer if the list is empty and allow the new node to be added to the end of the list
-void addNodeTail(Node *&head) {
+void addNodeTail(Node * & head) {
     int tmp_val = rand() % 100; // random number between 0-99
-    Node *newVal = new Node;
+    Node * newVal = new Node;
 
-    newVal->value = tmp_val;
-    newVal->next = nullptr;
+    newVal -> value = tmp_val;
+    newVal -> next = nullptr;
 
     if (!head) {
         head = newVal;
         return;
     }
 
-    Node *current = head;
+    Node * current = head;
 
-    while (current->next) {
-        current = current->next;
+    while (current -> next) {
+        current = current -> next;
     }
 
-    current->next = newVal;
+    current -> next = newVal;
 }
 
 // delete a node
 // pass head by reference to modify the original pointer and allow the new head of the list to be updated if the first node is deleted
-void deleteNode(Node *&head) {
+void deleteNode(Node * & head) {
     if (!head) {
         cout << "List is empty." << endl;
         return;
@@ -123,12 +117,12 @@ void deleteNode(Node *&head) {
     cout << "Enter node number to delete: ";
     cin >> entry;
 
-    Node *current = head;
-    Node *previous = nullptr;
+    Node * current = head;
+    Node * previous = nullptr;
 
-    for (int i = 0; i < (entry - 1); i++) {
+    for (int i = 0; i < (entry - 1) && current; i++) {
         previous = current;
-        current = current->next;
+        current = current -> next;
     }
 
     if (!current) {
@@ -137,19 +131,18 @@ void deleteNode(Node *&head) {
     }
 
     if (previous == nullptr) {
-            head = current->next;
-        } 
-    else {
-            previous->next = current->next;
-        }
+        head = current -> next;
+    } else {
+        previous -> next = current -> next;
+    }
 
-        delete current;
-        current = nullptr;
+    delete current;
+    current = nullptr;
 }
 
 // insert a node
 // pass head by reference to modify the original pointer and allow the new node to be inserted at the specified position in the list
-void insertNode(Node *&head) {
+void insertNode(Node * & head) {
     if (!head) {
         cout << "List is empty." << endl;
         return;
@@ -162,12 +155,12 @@ void insertNode(Node *&head) {
     cout << "Enter node number to insert after: ";
     cin >> entry;
 
-    Node *current = head;
-    Node *previous = nullptr;
+    Node * current = head;
+    Node * previous = nullptr;
 
-    for (int i = 0; i < entry; i++) {
+    for (int i = 0; i < entry && current; i++) {
         previous = current;
-        current = current->next;
+        current = current -> next;
     }
 
     if (!previous) {
@@ -175,20 +168,20 @@ void insertNode(Node *&head) {
         return;
     }
 
-    Node *newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
+    Node * newnode = new Node;
+    newnode -> value = 10000;
+    newnode -> next = current;
 
-    previous->next = newnode;
+    previous -> next = newnode;
 }
 
 // delete entire list
 // pass head by reference to modify the original pointer and allow the entire list to be deleted and head to be set to nullptr
-void deleteList(Node *&head) {
-    Node *current = head;
+void deleteList(Node * & head) {
+    Node * current = head;
 
     while (current) {
-        head = current->next;
+        head = current -> next;
         delete current;
         current = head;
     }
@@ -197,18 +190,18 @@ void deleteList(Node *&head) {
 }
 
 // output the list
-void output(Node *head) {
+void output(Node * head) {
     if (!head) {
         cout << "Empty list.\n";
         return;
     }
 
     int count = 1;
-    Node *current = head;
+    Node * current = head;
 
     while (current) {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
+        cout << "[" << count++ << "] " << current -> value << endl;
+        current = current -> next;
     }
 
     cout << endl;
