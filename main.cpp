@@ -10,6 +10,12 @@ struct Node {
     Node *next;
 };
 
+// adding function prototypes
+void addNodeFront(Node *&);
+void addNodeTail(Node *&);
+void deleteNode(Node *&);
+void insertNode(Node *&);
+void deleteList(Node *&);
 void output(Node *);
 
 int main() {
@@ -18,22 +24,37 @@ int main() {
 
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
-        int tmp_val = rand() % 100;
-        Node *newVal = new Node;
-        
-        // adds node at head
-        if (!head) {
-            head = newVal;
-            newVal->next = nullptr;
-            newVal->value = tmp_val;
+        addNodeFront(head);
+    }
+    
+    int choice = 0;
+
+    // menu loop for user to choose from
+    while (choice != 7) {
+        cout << "Linked List Menu:" << endl;
+        cout << "1. Add node to front" << endl;
+        cout << "2. Add node to end" << endl;
+        cout << "3: Delete a node" << endl;
+        cout << "4: Insert a node" << endl;
+        cout << "5. Delete entire list" << endl;
+        cout << "6: Print list" << endl;
+        cout << "7: Exit" << endl;
+        cout << "Choice --> ";
+        cin >> choice;
+
+        if (choice ==1) {
+            addNodeFront(head);
         }
-        else {
-            newVal->next = head;
-            newVal->value = tmp_val;
-            head = newVal;
+        else if (choice == 2) {
+            addNodeTail(head);
+        }
+        else if (choice == 3) {
+            deleteNode(head);
+        }
+        else if (choice == 4) {
+            insertNode(head);
         }
     }
-    output(head);
 
     // deleting a node
     cout << "Which node to delete? " << endl;
